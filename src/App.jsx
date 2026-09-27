@@ -2,10 +2,19 @@ import { useEffect, useState } from 'react'
 import { supabase, isConfigured } from './supabaseClient.js'
 import Auth from './components/Auth.jsx'
 import Photos from './components/Photos.jsx'
+import Contacts from './components/Contacts.jsx'
+import FramePreview from './components/FramePreview.jsx'
+
+const TABS = [
+  { id: 'photos', label: 'Photos' },
+  { id: 'contacts', label: 'Contacts' },
+  { id: 'preview', label: 'Frame Preview' },
+]
 
 export default function App() {
   const [session, setSession] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [tab, setTab] = useState('photos')
 
   useEffect(() => {
     if (!isConfigured) {
@@ -40,13 +49,27 @@ export default function App() {
         <span className="brand">🖼️ Frame Family Portal</span>
         {session && (
           <div className="user">
-            <span className="muted">{session.user.email}</span>
+            <span className="muted email">{session.user.email}</span>
             <button onClick={() => supabase.auth.signOut()}>Log out</button>
           </div>
         )}
       </header>
+
+      {session && (
+        <nav className="tabs">
+          {TABS.map((t) => (
+            <button key={t.id} className={tab === t.id ? 'tab active' : 'tab'} onClick={() => setTab(t.id)}>
+              {t.label}
+            </button>
+          ))}
+        </nav>
+      )}
+
       <main className="page">
-        {session ? <Photos user={session.user} /> : <Auth />}
+        {!session && <Auth />}
+        {session && tab === 'photos' && <Photos user={session.user} />}
+        {session && tab === 'contacts' && <Contacts />}
+        {session && tab === 'preview' && <FramePreview />}
       </main>
     </>
   )
