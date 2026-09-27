@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase, isConfigured } from './supabaseClient.js'
 import Auth from './components/Auth.jsx'
+import Photos from './components/Photos.jsx'
 
 export default function App() {
   const [session, setSession] = useState(null)
@@ -45,7 +46,7 @@ export default function App() {
         )}
       </header>
       <main className="page">
-        {session ? <p>Welcome! You are logged in.</p> : <Auth />}
+        {session ? <Photos user={session.user} /> : <Auth />}
       </main>
     </>
   )
