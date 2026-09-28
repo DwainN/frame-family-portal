@@ -7,7 +7,7 @@ The frame sits in the home of an older adult who may have memory loss, poor eyes
 This is a working prototype of the frame's cloud side, built for the ED2 "Build Software with AI" assignment.
 
 - **Live app:** https://frame-family-portal.netlify.app
-- **Demo video (YouTube, unlisted):** _VIDEO_LINK_
+- **Demo video (YouTube, unlisted):** https://youtu.be/Ymo1ZQmPBjg
 
 ## What the app does
 
